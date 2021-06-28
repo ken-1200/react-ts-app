@@ -65,8 +65,7 @@ class Task extends React.Component<{}, State> {
             { this.renderTask() }
           </tbody>
         </table>
-        <div><Link to="/">Home</Link></div>
-        <div><Link to="/task/new">About</Link></div>
+        <div><Link to="/task/new">+</Link></div>
       </React.Fragment>
     );
   }
