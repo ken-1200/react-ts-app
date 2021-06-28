@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Task from './components/Task';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Task from './components/organisms/Task';
+import NewTask from './components/organisms/NewTask';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Task />
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={ Task }></Route>
+        <Route exact path="/task" component={ Task }></Route>
+        <Route path="/task/new" component={ NewTask }></Route>
+        {/* <Route path="/task/:id" component={ ShowTask }></Route> */}
+      </Switch>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
