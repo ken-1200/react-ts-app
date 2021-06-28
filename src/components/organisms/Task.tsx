@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 
 type State = {
   tasklist: any;
@@ -15,7 +16,7 @@ class Task extends React.Component<{}, State> {
   }
 
   // 初期化処理
-  private constructor(props: any) {
+  public constructor(props: any) {
     super(props);
     this.state = { tasklist: {} };
   }
@@ -64,6 +65,8 @@ class Task extends React.Component<{}, State> {
             { this.renderTask() }
           </tbody>
         </table>
+        <div><Link to="/">Home</Link></div>
+        <div><Link to="/task/new">About</Link></div>
       </React.Fragment>
     );
   }
