@@ -28,8 +28,8 @@ class Task extends React.Component<{}, State> {
   }
 
   // タスク一覧 READ
-  public async getTask(): Promise<void> {
-    const url: string = `${process.env.REACT_APP_BSSE_URL}/todos`
+  private async getTask(): Promise<void> {
+    const url: string = `${process.env.REACT_APP_BSSE_URL}/todos`;
     const task = await axios.get(url);
     const mapTask = _.mapKeys(task.data, "id");
 
