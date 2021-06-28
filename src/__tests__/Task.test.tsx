@@ -1,12 +1,12 @@
 import axios from 'axios';
-import Task from '../components/Task'
+import Task from '../components/organisms/Task'
 
 jest.mock('axios');
 
 describe('first test', () => {
   afterEach(() => jest.restoreAllMocks());
 
-  it('should return empty string', async () => {
+  it('should return empty object', async () => {
     // レスポンス内容を指定
     const res = {id: 1, title: "title", text: "text"};
 
