@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 interface State {
-  title: string;
-  text: string;
+  title: string | void;
+  text: string | void;
+  errorTitle: string;
+  errorText: string;
 }
 
 class NewTask extends React.Component<any, State, any> {
@@ -17,6 +19,8 @@ class NewTask extends React.Component<any, State, any> {
     this.state = {
       title: "",
       text: "",
+      errorTitle: "",
+      errorText: "",
     }
 
     this.changeParentTitle = this.changeParentTitle.bind(this);
@@ -42,43 +46,48 @@ class NewTask extends React.Component<any, State, any> {
   }
 
   private titleValidator(value: string) {
-    if (value.length === 0 && this.state.title.length === 0) {
+    // 入力値がなくなったらエラー表示する
+    if (value.length === 0) {
       return this.titleValidation(value);
     }
 
+    this.setState({ errorTitle: "" });
     return value;
   }
 
   private TextValidator(value: string) {
-    if (value.length === 0 && this.state.text.length === 0) {
+    // 入力値がなくなったらエラー表示する
+    if (value.length === 0) {
       return this.textValidation(value);
     }
 
+    this.setState({ errorText: "" });
     return value;
   }
 
+  /**
+   * 
+   * @param value 入力値
+   * @returns エラーメッセージ
+   */
   public titleValidation(value: string) {
-    console.log("title入力値がない時に呼ばれる");
-    console.log(!!value);
-    if (!value) return "※タイトルを入力してください";
-    return value;
-  }
-
-  public textValidation(value: string) {
-    console.log("text入力値がない時に呼ばれる");
-    console.log(!!value);
-    if (!value) return "※テキストを入力してください";
-    return value;
-  }
-
-  public textError() {
-    if (!this.state.text) {
-      return "Ss";
+    // title入力値がない時に呼ばれる
+    if (!value) {
+      return this.setState({ errorTitle: "※タイトルを入力してください" });
     }
-
-    return "";
   }
 
+  /**
+   * 
+   * @param value 入力値
+   * @returns エラーメッセージ
+   */
+  public textValidation(value: string) {
+    // text入力値がない時に呼ばれる
+    if (!value) return this.setState({ errorText: "※テキストを入力してください" });
+  }
+
+  /** 新規作成API */
   private async postTask() {
     const url: string = `${process.env.REACT_APP_BSSE_URL}/todos`;
     const payload = {
@@ -94,6 +103,7 @@ class NewTask extends React.Component<any, State, any> {
       });
   }
 
+  /** ホーム画面遷移 */
   private historyHome(): void {
     // 画面遷移
     this.props.history.push("/");
@@ -104,16 +114,16 @@ class NewTask extends React.Component<any, State, any> {
       <React.Fragment>
         <div>
           <TitleForm changeParentTitle= { this.changeParentTitle } />
-          <p>{ this.state.title }</p>
+          <p>{ this.state.errorTitle }</p>
         </div>
         <div>
           <TextForm changeParentText={ this.changeParentText } />
           <p>
-            { this.state.text }
+            { this.state.errorText }
           </p>
         </div>
         <div>
-          <SubmitButton clickSubmitButton={ this.clickSubmitButton } disabled={ !this.state.text } />
+          <SubmitButton clickSubmitButton={ this.clickSubmitButton } disabled={ !this.state.text || !this.state.title } />
           <Link to="/">Cancel</Link>
         </div>
       </React.Fragment>
