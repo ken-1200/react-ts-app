@@ -20,6 +20,8 @@ describe('NewTask.tsx', () => {
     wrapper.setState({
       title: 'AAA',
       text: 'AAA',
+      errorTitle: '',
+      errorText: '',
     });
   
     // == 実行 ==
@@ -29,7 +31,7 @@ describe('NewTask.tsx', () => {
   
     // == 検証 ==
     /** 適切な引数でspy化したsetStateが呼び出されていればOK */
-    expect(wrapper.state()).toStrictEqual({ title: 'BBB', text: 'BBB' });
+    expect(wrapper.state()).toStrictEqual({ title: 'BBB', text: 'BBB', errorTitle: '', errorText: '' });
   });
 
   afterEach(() => jest.restoreAllMocks());
@@ -54,7 +56,6 @@ describe('NewTask.tsx', () => {
     /** postTask() */
     const data = await wrapper.instance().postTask();
 
-  
     // == 検証 ==
     /** 適切な引数でspy化したsetStateが呼び出されていればOK */
     expect(data).toBe(payload);
