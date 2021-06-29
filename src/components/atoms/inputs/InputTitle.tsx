@@ -10,7 +10,7 @@ export const InputTitle = ({ changeTitle, title }: any) => {
       id="title"
       type="text"
       placeholder="title"
-      value={ title }
+      value={ title || "" }
       onChange={
         (e: React.ChangeEvent<HTMLInputElement>) => {
           onChangeHandler(e.target.value);

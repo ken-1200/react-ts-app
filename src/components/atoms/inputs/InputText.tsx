@@ -10,11 +10,10 @@ export const InputText = ({ changeText, text }: any) => {
       id="text"
       type="text"
       placeholder="text"
-      value={ text }
+      value={ text || ""}
       onChange={
         (e: React.ChangeEvent<HTMLInputElement>) => {
           onChangeHandler(e.target.value);
-          console.log(text)
         }
       }
     />
