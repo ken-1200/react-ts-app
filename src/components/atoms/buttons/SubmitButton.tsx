@@ -7,8 +7,6 @@ export const SubmitButton = ({ clickSubmitButton, disabled }: any) => {
     clickSubmitButton();
   }
 
-  console.log(disabled);
-
   return (
     <button 
       type="submit"
