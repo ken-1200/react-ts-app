@@ -2,7 +2,7 @@ import React from "react";
 import { InputTitle } from "../atoms/inputs/InputTitle";
 import { LabelTitle } from "../atoms/labels/LabelTitle";
 
-export const TitleForm: ({ changeParentTitle }: any) => JSX.Element = ({ changeParentTitle }: any) => {
+export const TitleForm: ({ changeParentTitle, title }: any) => JSX.Element = ({ changeParentTitle, title }: any) => {
   // 受け取った引数を親コンポーネントの関数の引数に渡す
   function changeTitle(value: string): void {
     changeParentTitle(value);
@@ -10,7 +10,7 @@ export const TitleForm: ({ changeParentTitle }: any) => JSX.Element = ({ changeP
   return (
     <React.Fragment>
       <LabelTitle />
-      <InputTitle changeTitle={ changeTitle } />
+      <InputTitle title={ title } changeTitle={ changeTitle } />
     </React.Fragment>
   )
 };
