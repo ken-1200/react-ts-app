@@ -42,7 +42,11 @@ class Task extends React.Component<{}, State> {
     return _.map(this.state.tasklist, task => (
       <tr key={ task.id }>
         <td>{ task.id }</td>
-        <td>{ task.title }</td>
+        <td>
+          <Link to={ `/task/${task.id}` }>
+            { task.title }
+          </Link>
+        </td>
         <td>{ task.text }</td>
       </tr>
     ));
