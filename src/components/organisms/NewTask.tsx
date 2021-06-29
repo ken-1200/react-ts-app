@@ -41,6 +41,8 @@ class NewTask extends React.Component<any, State, any> {
     // Post実行
     await this.postTask();
 
+    this.setState({ title: "", text: "" });
+
     // 画面遷移
     this.historyHome();
   }
@@ -112,20 +114,22 @@ class NewTask extends React.Component<any, State, any> {
   render() {
     return (
       <React.Fragment>
-        <div>
-          <TitleForm changeParentTitle= { this.changeParentTitle } />
-          <p>{ this.state.errorTitle }</p>
-        </div>
-        <div>
-          <TextForm changeParentText={ this.changeParentText } />
-          <p>
-            { this.state.errorText }
-          </p>
-        </div>
-        <div>
-          <SubmitButton clickSubmitButton={ this.clickSubmitButton } disabled={ !this.state.text || !this.state.title } />
-          <Link to="/">Cancel</Link>
-        </div>
+        <form>
+          <div>
+            <TitleForm changeParentTitle= { this.changeParentTitle } />
+            <p>{ this.state.errorTitle }</p>
+          </div>
+          <div>
+            <TextForm changeParentText={ this.changeParentText } />
+            <p>
+              { this.state.errorText }
+            </p>
+          </div>
+          <div>
+            <SubmitButton clickSubmitButton={ this.clickSubmitButton } disabled={ !this.state.text || !this.state.title } />
+            <Link to="/">Cancel</Link>
+          </div>
+        </form>
       </React.Fragment>
     )
   }
