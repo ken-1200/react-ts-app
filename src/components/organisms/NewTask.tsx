@@ -25,12 +25,12 @@ class NewTask extends React.Component<any, State, any> {
   }
 
   // 受け取った引数をステートに格納
-  private changeParentTitle(value: string): void {
-    this.setState({ title: value });
+  private changeParentTitle(value: string) {
+    this.setState({ title: this.titleValidator(value) });
   }
 
   private changeParentText(value: string): void {
-    this.setState({ text: value });
+    this.setState({ text: this.TextValidator(value) });
   }
 
   private async clickSubmitButton(): Promise<void> {
@@ -39,6 +39,44 @@ class NewTask extends React.Component<any, State, any> {
 
     // 画面遷移
     this.historyHome();
+  }
+
+  private titleValidator(value: string) {
+    if (value.length === 0 && this.state.title.length === 0) {
+      return this.titleValidation(value);
+    }
+
+    return value;
+  }
+
+  private TextValidator(value: string) {
+    if (value.length === 0 && this.state.text.length === 0) {
+      return this.textValidation(value);
+    }
+
+    return value;
+  }
+
+  public titleValidation(value: string) {
+    console.log("title入力値がない時に呼ばれる");
+    console.log(!!value);
+    if (!value) return "※タイトルを入力してください";
+    return value;
+  }
+
+  public textValidation(value: string) {
+    console.log("text入力値がない時に呼ばれる");
+    console.log(!!value);
+    if (!value) return "※テキストを入力してください";
+    return value;
+  }
+
+  public textError() {
+    if (!this.state.text) {
+      return "Ss";
+    }
+
+    return "";
   }
 
   private async postTask() {
@@ -64,10 +102,18 @@ class NewTask extends React.Component<any, State, any> {
   render() {
     return (
       <React.Fragment>
-        <div><TitleForm changeParentTitle= { this.changeParentTitle } /></div>
-        <div><TextForm changeParentText={ this.changeParentText } /></div>
         <div>
-          <SubmitButton clickSubmitButton={ this.clickSubmitButton } />
+          <TitleForm changeParentTitle= { this.changeParentTitle } />
+          <p>{ this.state.title }</p>
+        </div>
+        <div>
+          <TextForm changeParentText={ this.changeParentText } />
+          <p>
+            { this.state.text }
+          </p>
+        </div>
+        <div>
+          <SubmitButton clickSubmitButton={ this.clickSubmitButton } disabled={ !this.state.text } />
           <Link to="/">Cancel</Link>
         </div>
       </React.Fragment>
