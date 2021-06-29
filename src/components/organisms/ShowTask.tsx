@@ -10,6 +10,8 @@ interface State {
   text: string | void;
   errorTitle: string;
   errorText: string;
+  checkEditTitle: boolean;
+  checkEditText: boolean;
 }
 
 class NewTask extends React.Component<any, State, any> {
@@ -21,6 +23,8 @@ class NewTask extends React.Component<any, State, any> {
       text: "",
       errorTitle: "",
       errorText: "",
+      checkEditTitle: false,
+      checkEditText: false,
     }
 
     this.changeParentTitle = this.changeParentTitle.bind(this);
@@ -48,10 +52,14 @@ class NewTask extends React.Component<any, State, any> {
 
   // 受け取った引数をステートに格納
   private changeParentTitle(value: string) {
+    this.setState({ checkEditTitle: true, checkEditText: true });
+
     this.setState({ title: this.titleValidator(value) });
   }
 
   private changeParentText(value: string): void {
+    this.setState({ checkEditText: true, checkEditTitle: true });
+
     this.setState({ text: this.TextValidator(value) });
   }
 
@@ -151,17 +159,17 @@ class NewTask extends React.Component<any, State, any> {
       <React.Fragment>
         <form>
           <div>
-            <TitleForm changeParentTitle= { this.changeParentTitle } title={ this.state.title } />
+            <TitleForm changeParentTitle= { this.changeParentTitle } title={ this.state.title || "" } />
             <p>{ this.state.errorTitle }</p>
           </div>
           <div>
-            <TextForm changeParentText={ this.changeParentText } text={ this.state.text } />
+            <TextForm changeParentText={ this.changeParentText } text={ this.state.text || "" } />
             <p>
               { this.state.errorText }
             </p>
           </div>
           <div>
-            <SubmitButton clickSubmitButton={ this.clickSubmitButton } disabled={ !this.state.text || !this.state.title } />
+            <SubmitButton clickSubmitButton={ this.clickSubmitButton } disabled={ !this.state.text || !this.state.title || !this.state.checkEditText || !this.state.checkEditTitle } />
             <Link to="/">Cancel</Link>
             <button type="submit" onClick={ this.deleteTask }>Delete</button>
           </div>
