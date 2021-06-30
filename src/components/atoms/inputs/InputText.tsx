@@ -1,3 +1,5 @@
+import TextField from 'material-ui/TextField';
+
 export const InputText = ({ changeText, text }: any) => {
   // onChange時、実行関数
   function onChangeHandler(value: string): void {
@@ -6,10 +8,10 @@ export const InputText = ({ changeText, text }: any) => {
   }
 
   return (
-    <input 
+    <TextField 
       id="text"
       type="text"
-      placeholder="text"
+      fullWidth={ true }
       value={ text }
       onChange={
         (e: React.ChangeEvent<HTMLInputElement>) => {

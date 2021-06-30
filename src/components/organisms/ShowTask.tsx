@@ -4,6 +4,7 @@ import { TextForm } from "../molecules/TextForm";
 import { SubmitButton } from "../atoms/buttons/SubmitButton";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import RaisedButton from 'material-ui/RaisedButton';
 
 interface State {
   title: string | void;
@@ -155,6 +156,10 @@ class NewTask extends React.Component<any, State, any> {
   }
 
   render() {
+    const style = {
+      margin: "12px",
+    }
+
     return (
       <React.Fragment>
         <form>
@@ -164,14 +169,12 @@ class NewTask extends React.Component<any, State, any> {
           </div>
           <div>
             <TextForm changeParentText={ this.changeParentText } text={ this.state.text || "" } />
-            <p>
-              { this.state.errorText }
-            </p>
+            <p>{ this.state.errorText }</p>
           </div>
           <div>
             <SubmitButton clickSubmitButton={ this.clickSubmitButton } disabled={ !this.state.text || !this.state.title || !this.state.checkEditText || !this.state.checkEditTitle } />
-            <Link to="/">Cancel</Link>
-            <button type="submit" onClick={ this.deleteTask }>Delete</button>
+            <RaisedButton label="Cancel" style={ style } containerElement={ <Link to="/" /> } />
+            <RaisedButton type="submit" style={ style } onClick={ this.deleteTask }>Delete</RaisedButton>
           </div>
         </form>
       </React.Fragment>
