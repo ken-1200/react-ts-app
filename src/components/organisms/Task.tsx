@@ -2,6 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 type State = {
   tasklist: any;
@@ -40,36 +43,49 @@ class Task extends React.Component<{}, State> {
   // テーブル表示関数
   private renderTask(): JSX.Element[] {
     return _.map(this.state.tasklist, task => (
-      <tr key={ task.id }>
-        <td>{ task.id }</td>
-        <td>
+      <TableRow key={ task.id }>
+        <TableRowColumn>{ task.id }</TableRowColumn>
+        <TableRowColumn>
           <Link to={ `/task/${task.id}` }>
             { task.title }
           </Link>
-        </td>
-        <td>{ task.text }</td>
-      </tr>
+        </TableRowColumn>
+        <TableRowColumn>{ task.text }</TableRowColumn>
+      </TableRow>
     ));
   }
 
   render() {
+    const style: any = {
+      position: "fixed",
+      right: "12px",
+      bottom: "12px",
+    }
+
     return (
       <React.Fragment>
-        <h1>task list</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Text</th>
-            </tr>
-          </thead>
+        <h1>Task List</h1>
+        <Table>
+          <TableHeader
+            displaySelectAll={ false }
+            adjustForCheckbox={ false }
+          >
+            <TableRow>
+              <TableHeaderColumn>ID</TableHeaderColumn>
+              <TableHeaderColumn>Title</TableHeaderColumn>
+              <TableHeaderColumn>Text</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
 
-          <tbody>
+          <TableBody
+            displayRowCheckbox={ false }
+          >
             { this.renderTask() }
-          </tbody>
-        </table>
-        <div><Link to="/task/new">+</Link></div>
+          </TableBody>
+        </Table>
+        <FloatingActionButton style={ style } containerElement={ <Link to="/task/new" /> }>
+          <ContentAdd></ContentAdd>
+        </FloatingActionButton>
       </React.Fragment>
     );
   }

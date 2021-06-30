@@ -1,3 +1,5 @@
+import RaisedButton from 'material-ui/RaisedButton';
+
 export const SubmitButton = ({ clickSubmitButton, disabled }: any) => {
   // onClick時、実行関数
   function onClickHandler(e: any) {
@@ -7,11 +9,14 @@ export const SubmitButton = ({ clickSubmitButton, disabled }: any) => {
     clickSubmitButton();
   }
 
+  const style = { margin: "12px" };
+
   return (
-    <button 
+    <RaisedButton 
       type="submit"
+      style={ style }
       onClick={ onClickHandler }
       disabled={ disabled }
-    >Submit</button>
+    >Submit</RaisedButton>
   )
 };
